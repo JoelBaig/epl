@@ -11,6 +11,10 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     dead = false;
+    offsetX;
+    offsetY
+    offsetWidth;
+    offsetHeight;
 
     /**
      * Applies gravity to the object, making it fall downwards.
