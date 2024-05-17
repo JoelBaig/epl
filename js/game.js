@@ -2,18 +2,21 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+/**
+ * Initializes the Game
+ * 
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
-    console.log('My character is', world.character);
-    console.log('My enemies are', world.level.enemies);
 }
 
+/**
+ * Called when a key is pressed.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
 
 window.addEventListener('keydown', (event) => {
-    console.log(event);
-
     if (event.keyCode == 37) {
         keyboard.LEFT = true;
     }
@@ -39,10 +42,11 @@ window.addEventListener('keydown', (event) => {
     }
 });
 
-
+/**
+ * Called when a key is released.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
 window.addEventListener('keyup', (event) => {
-    console.log(event);
-
     if (event.keyCode == 37) {
         keyboard.LEFT = false;
     }

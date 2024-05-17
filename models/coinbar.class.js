@@ -1,3 +1,7 @@
+/**
+ * Represents a coin bar that displays the player's coin status.
+ * 
+ */
 class Coinbar extends Statusbar {
     x = 15;
     y = 50;
@@ -10,6 +14,10 @@ class Coinbar extends Statusbar {
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
     ];
 
+    /**
+     * Constructs a new Coinbar object.
+     * 
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);

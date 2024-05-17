@@ -1,14 +1,29 @@
+/**
+ * Represents a level in the game.
+ * 
+ */
 class Level {
     backgroundObjects;
     clouds;
-    enemies;
     coins;
+    bottles;
+    enemies;
     level_end_x = 2200;
 
-    constructor(backgroundObjects, clouds, enemies) {
+    /**
+     * Creates an instance of Level.
+     * 
+     * @param {BackgroundObject[]} backgroundObjects - The background objects of the level.
+     * @param {Cloud[]} clouds - The cloud objects of the level.
+     * @param {Enemy[]} enemies - The enemy objects of the level.
+     * @param {Coin[]} coins - The coin objects of the level.
+     * @param {Bottle[]} bottles - The bottle objects of the level.
+     */
+    constructor(backgroundObjects, clouds, coins, bottles, enemies) {
         this.backgroundObjects = backgroundObjects;
         this.clouds = clouds;
-        this.enemies = enemies;
         this.coins = coins;
+        this.bottles = bottles;
+        this.enemies = enemies;
     }
 }

@@ -1,7 +1,12 @@
+/**
+ * Class representing a boss chicken enemy.
+ * 
+ * Extends the MovableObject class.
+ */
 class ChickenBoss extends MovableObject {
-    y = -40;
-    height = 500;
-    width = 300;
+    y = 50;
+    height = 400;
+    width = 200;
     IMAGES_WALKING = [
         '../assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         '../assets/img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -13,6 +18,11 @@ class ChickenBoss extends MovableObject {
         '../assets/img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
+    /**
+     * Creates an instance of ChickenBoss.
+     * 
+     * Sets initial properties, loads images, and starts animation.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -20,7 +30,10 @@ class ChickenBoss extends MovableObject {
         this.animate();
     }
 
-
+    /**
+     * Animates the walking animation of the boss chicken.
+     * 
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);

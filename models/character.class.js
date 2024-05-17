@@ -1,9 +1,25 @@
+/**
+ * Represents a character object that can move and interact in the game world.
+ * 
+ */
 class Character extends MovableObject {
     x = 100;
     y = 90;
     height = 240;
     width = 120;
     speed = 8;
+    IMAGES_TIRED = [
+        '../assets/img/2_character_pepe/1_idle/idle/I-1.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-2.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-3.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-4.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-5.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-6.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-7.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-8.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-9.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
     IMAGES_WALKING = [
         '../assets/img/2_character_pepe/2_walk/W-21.png',
         '../assets/img/2_character_pepe/2_walk/W-22.png',
@@ -40,6 +56,11 @@ class Character extends MovableObject {
     world;
     walking_sound = new Audio('../assets/audio/running.mp3');
 
+    /**
+     * Constructs a new Character object.
+     * 
+     */
+
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -50,7 +71,13 @@ class Character extends MovableObject {
         this.animate();
     }
 
-
+    /**
+     * Animates the character's actions and updates its state.
+     * 
+     * This method uses two intervals:
+     * - The first interval handles movement and user input.
+     * - The second interval handles character animations and state changes.
+     */
     animate() {
 
         setInterval(() => {
@@ -91,15 +118,19 @@ class Character extends MovableObject {
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
-                } else if (this.doNothing()) {
+                } else if (this.doingNothing()) {
                     this.loadImage(this.IMAGES_WALKING[0]);
                 }
             }
         }, 100);
     }
 
-
-    doNothing() {
+    /**
+     * Checks if the character should remain idle.
+     * 
+     * @returns {boolean} True if the character should remain idle, false otherwise.
+     */
+    doingNothing() {
         if (!this.world.keyboard.RIGHT || !this.world.keyboard.LEFT || !this.world.keyboard.SPACE || !this.isHurt()) {
             return true;
         }

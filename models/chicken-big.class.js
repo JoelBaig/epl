@@ -1,3 +1,8 @@
+/**
+ * Represents a big chicken enemy in the game.
+ * 
+ * Extends the MovableObject class.
+ */
 class ChickenBig extends MovableObject {
     y = 350;
     height = 80;
@@ -9,17 +14,26 @@ class ChickenBig extends MovableObject {
     ];
     dying_sound = new Audio('../assets/audio/chicken.mp3');
 
+    /**
+     * Creates an instance of ChickenBig.
+     * 
+     * Sets initial properties, loads images, and starts animation.
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
 
-        this.x = 400 + Math.random() * 500;
+        this.x = 400 + Math.random() * 2000;
         this.speed = 0.15 + Math.random() * 0.25;
 
         this.animate();
     }
 
-
+    /**
+     * Animates the movement and walking animation of the chicken.
+     * 
+     * Moves the chicken horizontally and plays its walking animation.
+     */
     animate() {
         setInterval(() => {
             this.x -= this.speed;
