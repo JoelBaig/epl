@@ -17,6 +17,7 @@ class ChickenBoss extends MovableObject {
         '../assets/img/4_enemie_boss_chicken/2_alert/G11.png',
         '../assets/img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
+    BOSS_SOUND = new Audio('../assets/audio/endboss.mp3');
 
     /**
      * Creates an instance of ChickenBoss.
@@ -35,8 +36,12 @@ class ChickenBoss extends MovableObject {
      * 
      */
     animate() {
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 200);
+        setStoppableInterval(() => this.bossAnimation(), 200);
+    }
+
+
+    bossAnimation() {
+        this.playAnimation(this.IMAGES_WALKING);
+        i++;
     }
 }

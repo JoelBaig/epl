@@ -1,6 +1,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let intervalIds = [];
+let i = 1;
+let character;
 
 /**
  * Initializes the Game
@@ -9,6 +12,23 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+}
+
+/**
+ * Sets a stoppable interval for a function.
+ * @param {Function} fn - The function to be executed.
+ * @param {number} time - The interval time in milliseconds.
+ */
+function setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    intervalIds.push(id);
+}
+
+/**
+ * Stops the game by clearing all intervals.
+ */
+function stopGame() {
+    intervalIds.forEach(clearInterval);
 }
 
 /**

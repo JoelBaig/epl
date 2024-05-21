@@ -7,11 +7,11 @@ class Bottlebar extends Statusbar {
     y = 100;
     IMAGES = [
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
-        '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
-        '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png',
+        '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png',
+        '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/40.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/60.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
-        '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
+        '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png'
     ];
 
     /**
@@ -21,6 +21,7 @@ class Bottlebar extends Statusbar {
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.setPercentage(100);
+        this.percentage = 0;
+        this.setPercentage(this.percentage);
     }
 }

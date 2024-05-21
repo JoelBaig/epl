@@ -4,16 +4,17 @@
  */
 class World {
     character = new Character();
+    healthBar = new Healthbar();
+    coinBar = new Coinbar();
+    bottleBar = new Bottlebar();
+    bossHealthBar = new BossHealthbar();
     level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-    healthBar = new Healthbar();
-    coinBar = new Coinbar();
-    bottleBar = new Bottlebar();
-    bossHealthBar = new BossHealthbar();
     throwableObjects = [];
+    throwBottle = false;
 
     /**
      * Creates an instance of World.
@@ -44,7 +45,10 @@ class World {
      */
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisionsEnemy();
+            this.checkCollisionsCoin();
+            this.checkCollisionsBottleLeft();
+            this.checkCollisionsBottleRight();
             this.checkThrowObjects();
         }, 200);
     }
@@ -53,11 +57,53 @@ class World {
      * Checks collisions between the character and enemies.
      * 
      */
-    checkCollisions() {
+    checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
+                this.healthBar.setPercentage(this.character.energyStatus);
+            }
+        });
+    }
+
+    /**
+     * Checks collisions between the character and coins.
+     * 
+     */
+    checkCollisionsCoin() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.level.coins.splice(index, 1);
+                if (this.character.collectCoin()) {
+                    this.coinBar.setPercentage(this.character.coinAmount);
+                }
+            }
+        });
+    }
+
+    /**
+     * Checks collisions between the character and bottles.
+     * 
+     */
+    checkCollisionsBottleLeft() {
+        this.level.bottleLeft.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.level.bottleLeft.splice(index, 1);
+                if (this.character.collectBottle()) {
+                    this.bottleBar.setPercentage(this.character.bottleAmount);
+                }
+            }
+        });
+    }
+
+
+    checkCollisionsBottleRight() {
+        this.level.bottleRight.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.level.bottleRight.splice(index, 1);
+                if (this.character.collectBottle()) {
+                    this.bottleBar.setPercentage(this.character.bottleAmount);
+                }
             }
         });
     }
@@ -67,9 +113,10 @@ class World {
      * 
      */
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.bottleAmount >= 1) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
+            this.bottleAmount--;
         }
     }
 
@@ -90,12 +137,12 @@ class World {
         this.addToMap(this.bottleBar);
         this.addToMap(this.bossHealthBar);
         this.ctx.translate(this.camera_x, 0);
-
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.bottleLeft);
+        this.addObjectsToMap(this.level.bottleRight);
+        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);

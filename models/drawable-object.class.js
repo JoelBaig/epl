@@ -10,6 +10,12 @@ class DrawableObject {
     img;
     imageCache = {};
     currentImage = 0;
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    };
 
     /**
      * Loads an image from the specified path.
@@ -29,11 +35,10 @@ class DrawableObject {
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-        } catch(e) {
+        } catch (e) {
             console.warn('Error loading image', e);
             console.log('Could not load image', this.img.src);
         }
-
     }
 
     /**
@@ -42,11 +47,19 @@ class DrawableObject {
      * @param {CanvasRenderingContext2D} ctx - The canvas context.
      */
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof ChickenBig || this instanceof ChickenSmall || this instanceof ChickenBoss) {
+        if (this instanceof Character || this instanceof ChickenBig || this instanceof ChickenSmall || this instanceof ChickenBoss || this instanceof Coin || this instanceof BottleLeft || this instanceof BottleRight) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+
+        if (this instanceof Character || this instanceof ChickenBig || this instanceof ChickenSmall || this instanceof ChickenBoss || this instanceof Coin || this instanceof BottleLeft || this instanceof BottleRight) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.offset.top, this.offset.left, this.offset.right, this.offset.bottom);
             ctx.stroke();
         }
     }

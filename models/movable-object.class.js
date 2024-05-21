@@ -8,13 +8,14 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
-    energy = 100;
-    lastHit = 0;
+    energyStatus = 100;
+    lastHitFromEnemy = 0;
     dead = false;
-    offsetX;
-    offsetY
-    offsetWidth;
-    offsetHeight;
+    coinAmount = 0;
+    bottleAmount = 0;
+    COLLECT_COIN_SOUND = new Audio('../assets/audio/collect_coin.mp3');
+    COLLECT_BOTTLE_SOUND = new Audio('../assets/audio/collect_bottle.mp3');
+    DYING_SOUND = new Audio('../assets/audio/loose.mp3');
 
     /**
      * Applies gravity to the object, making it fall downwards.
@@ -43,7 +44,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Checks if the object is colliding with another object.
+     * Checks if the movable object is colliding with another movable object.
      * 
      * @param {MovableObject} mo - The other movable object to check collision with.
      * @returns {boolean} True if the objects are colliding, false otherwise.
@@ -56,15 +57,58 @@ class MovableObject extends DrawableObject {
     }
 
     /**
+     * Checks if the movable object is colliding with a static object.
+     * 
+     * @param {MovableObject} mo - The other movable object to check collision with.
+     * @returns {boolean} True if the objects are colliding, false otherwise.
+     */
+    // isColliding(mo) {
+    //     return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+    //         this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+    //         this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+    //         this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+    // }
+
+    /**
      * Handles the object being hit, reducing its energy level.
      * 
      */
     hit() {
-        this.energy -= 10;
-        if (this.energy < 0) {
-            this.energy = 0;
+        this.energyStatus -= 10;
+        if (this.energyStatus < 0) {
+            this.energyStatus = 0;
         } else {
-            this.lastHit = new Date().getTime();
+            this.lastHitFromEnemy = new Date().getTime();
+        }
+    }
+
+    /**
+     * Handles the object collecting coin, increase its coin amount.
+     * 
+     */
+    collectCoin() {
+        this.COLLECT_COIN_SOUND.play();
+        this.coinAmount += 20;
+        if (this.coinAmount <= 100) {
+            console.log('coinAmount', this.coinAmount);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Handles the object collecting bottle, increase its bottle amount.
+     * 
+     */
+    collectBottle() {
+        this.COLLECT_BOTTLE_SOUND.play();
+        this.bottleAmount += 20;
+        if (this.bottleAmount <= 100) {
+            console.log('bottleAmount', this.bottleAmount);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -74,7 +118,7 @@ class MovableObject extends DrawableObject {
        * @returns {boolean} True if the object is hurt, false otherwise.
        */
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit;
+        let timepassed = new Date().getTime() - this.lastHitFromEnemy;
         timepassed = timepassed / 1000;
         return timepassed < 1;
     }
@@ -85,7 +129,8 @@ class MovableObject extends DrawableObject {
          * @returns {boolean} True if the object is dead, false otherwise.
          */
     isDead() {
-        return this.energy == 0;
+        return this.energyStatus == 0;
+
     }
 
     /**

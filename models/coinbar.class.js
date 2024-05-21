@@ -7,12 +7,13 @@ class Coinbar extends Statusbar {
     y = 50;
     IMAGES = [
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
-        '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
-        '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
+        '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/20.png',
+        '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/40.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
-        '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
+        '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png'
     ];
+    percentage = 0;
 
     /**
      * Constructs a new Coinbar object.
@@ -21,6 +22,6 @@ class Coinbar extends Statusbar {
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.setPercentage(100);
+        this.setPercentage(this.coinAmount);
     }
 }

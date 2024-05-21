@@ -3,8 +3,8 @@
  * 
  */
 class BossHealthbar extends Statusbar {
-    x = 1800;
-    y = 0;
+    x = 500;
+    y = 55;
     IMAGES = [
         '../assets/img/7_statusbars/2_statusbar_endboss/blue/blue0.png',
         '../assets/img/7_statusbars/2_statusbar_endboss/blue/blue20.png',
@@ -21,7 +21,7 @@ class BossHealthbar extends Statusbar {
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.setPercentage(100);
-        this.x = 2500;
+        this.percentage = 100;
+        this.setPercentage(this.percentage);
     }
 }

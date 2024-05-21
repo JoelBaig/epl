@@ -31,11 +31,11 @@ const level1 = new Level(
         new BackgroundObject('../assets/img/5_background/layers/1_first_layer/2.png', 719 * 3, 0)
     ],
     [
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud()
+        new Cloud('../assets/img/5_background/layers/4_clouds/1.png', 100, 100),
+        new Cloud('../assets/img/5_background/layers/4_clouds/2.png', 300, 100),
+        new Cloud('../assets/img/5_background/layers/4_clouds/1.png', 500, 100),
+        new Cloud('../assets/img/5_background/layers/4_clouds/2.png', 700, 100),
+        new Cloud('../assets/img/5_background/layers/4_clouds/1.png', 900, 100)
     ],
     [
         new Coin(),
@@ -45,11 +45,13 @@ const level1 = new Level(
         new Coin()
     ],
     [
-        new Bottle(),
-        new Bottle(),
-        new Bottle(),
-        new Bottle(),
-        new Bottle()
+        new BottleLeft(),
+        new BottleLeft(),
+        new BottleLeft()
+    ],
+    [
+        new BottleRight(),
+        new BottleRight()
     ],
     [
         new ChickenBig(),

@@ -4,7 +4,6 @@
  * Extends the MovableObject class.
  */
 class ChickenBig extends MovableObject {
-    y = 350;
     height = 80;
     width = 60;
     IMAGES_WALKING = [
@@ -13,6 +12,12 @@ class ChickenBig extends MovableObject {
         '../assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
     dying_sound = new Audio('../assets/audio/chicken.mp3');
+    offset = {
+        top: 25,
+        left: 350,
+        right: 50,
+        bottom: 70
+    };
 
     /**
      * Creates an instance of ChickenBig.
@@ -22,11 +27,10 @@ class ChickenBig extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
-
-        this.x = 400 + Math.random() * 2000;
-        this.speed = 0.15 + Math.random() * 0.25;
-
         this.animate();
+        this.x = 400 + Math.random() * 2000;
+        this.y = 350;
+        this.speed = 0.15 + Math.random() * 0.25;
     }
 
     /**
@@ -36,7 +40,8 @@ class ChickenBig extends MovableObject {
      */
     animate() {
         setInterval(() => {
-            this.x -= this.speed;
+            this.moveLeft();
+            this.offset.top = this.x +5;
         }, 1000 / 60);
 
         setInterval(() => {

@@ -13,6 +13,12 @@ class ChickenSmall extends MovableObject {
         '../assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
     dying_sound = new Audio('../assets/audio/chicken.mp3');
+    offset = {
+        top: 30,
+        left: 380,
+        right: 30,
+        bottom: 40
+    };
 
     /**
      * Creates an instance of ChickenSmall.
@@ -37,7 +43,8 @@ class ChickenSmall extends MovableObject {
 
     animate() {
         setInterval(() => {
-            this.x -= this.speed;
+            this.moveLeft();
+            this.offset.top = this.x +5;
         }, 1000 / 60);
 
         setInterval(() => {
