@@ -67,14 +67,15 @@ class Character extends MovableObject {
     ];
     world;
     offset = {
-        top: 120,
-        left: 300,
-        right: 70,
-        bottom: 130
+        top: 230,
+        left: 100,
+        right: 100,
+        bottom: 150
     };
     WALKING_SOUND = new Audio('../assets/audio/walking.mp3');
     JUMPING_SOUND = new Audio('../assets/audio/jump.mp3');
     TAKING_DAMAGE_SOUND = new Audio('../assets/audio/taking_damage.mp3');
+    DYING_SOUND = new Audio('../assets/audio/loose.mp3');
 
     /**
      * Constructs a new Character object.
@@ -108,7 +109,7 @@ class Character extends MovableObject {
                     this.moveRight();
                     this.otherDirection = false;
                     this.WALKING_SOUND.play();
-                    this.offset.top = this.x + 30;
+                    // this.offset.top = this.x + 30;
                 }
 
                 if (this.world.keyboard.LEFT && this.x > 0) {
@@ -120,9 +121,7 @@ class Character extends MovableObject {
                 if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                     this.JUMPING_SOUND.play();
                     this.jump();
-                    setInterval(() => {
-                        this.offset.left = this.y + 100;
-                    }, 1000 / 60);
+                    // setInterval(this.offset.left = this.y + 100, 1000 / 60);
                 }
 
                 this.world.camera_x = -this.x + 100;
@@ -130,9 +129,12 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
 
-        setInterval(() => {
+        this.setStoppableInterval(() => {
             if (this.isDead()) {
-                // this.DYING_SOUND.play();
+                setTimeout(() => {
+                    this.stopGame();
+                }, 2000);
+                this.DYING_SOUND.play();
                 this.WALKING_SOUND.pause();
                 this.playAnimation(this.IMAGES_DEAD);
                 this.y -= this.speedY;
@@ -144,6 +146,8 @@ class Character extends MovableObject {
             } else if (this.isAboveGround()) {
                 this.WALKING_SOUND.pause();
                 this.playAnimation(this.IMAGES_JUMPING);
+                // } else if (this.isAboveGround && this.isColliding()) {
+                //     this.killEnemyByJump();
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
@@ -164,4 +168,24 @@ class Character extends MovableObject {
             return true;
         }
     }
+
+    /**
+     * Makes the object jump by setting its vertical speed.
+     * 
+     */
+    jump() {
+        this.speedY = 30;
+    }
+
+
+    // killEnemyByJump() {
+    //     this.level.enemies.forEach((enemy, index) => {
+    //         this.killedEnemy(enemy, index);
+    //     });
+    // }
+
+
+    // killedEnemy(enemy, index) {
+
+    // }
 }

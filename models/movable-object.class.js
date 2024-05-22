@@ -15,7 +15,24 @@ class MovableObject extends DrawableObject {
     bottleAmount = 0;
     COLLECT_COIN_SOUND = new Audio('../assets/audio/collect_coin.mp3');
     COLLECT_BOTTLE_SOUND = new Audio('../assets/audio/collect_bottle.mp3');
-    DYING_SOUND = new Audio('../assets/audio/loose.mp3');
+    intervalIds = [];
+
+    /**
+     * Sets a stoppable interval for a function.
+     * @param {Function} fn - The function to be executed.
+     * @param {number} time - The interval time in milliseconds.
+     */
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn, time);
+        this.intervalIds.push(id);
+    }
+
+    /**
+     * Stops the game by clearing all intervals.
+     */
+    stopGame() {
+        this.intervalIds.forEach(clearInterval);
+    }
 
     /**
      * Applies gravity to the object, making it fall downwards.
@@ -49,12 +66,12 @@ class MovableObject extends DrawableObject {
      * @param {MovableObject} mo - The other movable object to check collision with.
      * @returns {boolean} True if the objects are colliding, false otherwise.
      */
-    isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x + mo.width &&
-            this.y < mo.y + mo.height;
-    }
+    // isColliding(mo) {
+    //     return this.x + this.width > mo.x &&
+    //         this.y + this.height > mo.y &&
+    //         this.x < mo.x + mo.width &&
+    //         this.y < mo.y + mo.height
+    // }
 
     /**
      * Checks if the movable object is colliding with a static object.
@@ -62,12 +79,12 @@ class MovableObject extends DrawableObject {
      * @param {MovableObject} mo - The other movable object to check collision with.
      * @returns {boolean} True if the objects are colliding, false otherwise.
      */
-    // isColliding(mo) {
-    //     return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-    //         this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-    //         this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-    //         this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
-    // }
+    isColliding(mo) {
+        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
+    }
 
     /**
      * Handles the object being hit, reducing its energy level.
@@ -130,7 +147,6 @@ class MovableObject extends DrawableObject {
          */
     isDead() {
         return this.energyStatus == 0;
-
     }
 
     /**
@@ -159,13 +175,5 @@ class MovableObject extends DrawableObject {
      */
     moveLeft() {
         this.x -= this.speed;
-    }
-
-    /**
-     * Makes the object jump by setting its vertical speed.
-     * 
-     */
-    jump() {
-        this.speedY = 30;
     }
 }

@@ -12,13 +12,17 @@ class ChickenSmall extends MovableObject {
         '../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
         '../assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
+    IMAGES_DEAD = [
+        '../assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
+    ];
     dying_sound = new Audio('../assets/audio/chicken.mp3');
     offset = {
-        top: 30,
-        left: 380,
-        right: 30,
-        bottom: 40
+        top: 50,
+        left: 40,
+        right: 40,
+        bottom: 50
     };
+    energyStatus = 100;
 
     /**
      * Creates an instance of ChickenSmall.
@@ -44,11 +48,23 @@ class ChickenSmall extends MovableObject {
     animate() {
         setInterval(() => {
             this.moveLeft();
-            this.offset.top = this.x +5;
+            // this.offset.top = this.x + 5;
         }, 1000 / 60);
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 100);
+
+
+        setInterval(() => {
+            if (this.isDead()) {
+                // this.DYING_SOUND.play();
+                this.playAnimation(this.IMAGES_DEAD);
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+                this.dead = true;
+            }
+        }, 100);
     }
 }
+

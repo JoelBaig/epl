@@ -6,14 +6,16 @@ class BottleRight extends MovableObject {
     IMAGES_BOTTLE_RIGHT = [
         '../assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ];
+    offset = {
+        top: 15,
+        left: 25,
+        right: 25,
+        bottom: 10
+    };
 
     constructor() {
         super().loadImage(this.IMAGES_BOTTLE_RIGHT[0]);
         this.x = 200 + Math.random() * 1800;
         this.y = 370;
-        this.offset.top = this.x + 60;
-        this.offset.left = this.y + 70;
-        this.offset.right = this.width - 120;
-        this.offset.bottom = this.height - 140;
     }
 }

@@ -13,10 +13,10 @@ class ChickenBig extends MovableObject {
     ];
     dying_sound = new Audio('../assets/audio/chicken.mp3');
     offset = {
-        top: 25,
-        left: 350,
-        right: 50,
-        bottom: 70
+        top: 70,
+        left: 60,
+        right: 60,
+        bottom: 75
     };
 
     /**
@@ -41,7 +41,7 @@ class ChickenBig extends MovableObject {
     animate() {
         setInterval(() => {
             this.moveLeft();
-            this.offset.top = this.x +5;
+            // this.offset.top = this.x + 5;
         }, 1000 / 60);
 
         setInterval(() => {

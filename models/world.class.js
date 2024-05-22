@@ -60,8 +60,12 @@ class World {
     checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
+                console.log('is Coliding');
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.energyStatus);
+                // } else if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                //     this.level.enemies.splice(index, 1);
+                //     this.dead = true;
             }
         });
     }
@@ -132,11 +136,14 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
 
         this.ctx.translate(-this.camera_x, 0);
+
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.bossHealthBar);
+
         this.ctx.translate(this.camera_x, 0);
+
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
@@ -176,6 +183,7 @@ class World {
 
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
+        mo.drawFrameRed(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

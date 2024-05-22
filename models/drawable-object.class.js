@@ -55,11 +55,27 @@ class DrawableObject {
             ctx.stroke();
         }
 
-        if (this instanceof Character || this instanceof ChickenBig || this instanceof ChickenSmall || this instanceof ChickenBoss || this instanceof Coin || this instanceof BottleLeft || this instanceof BottleRight) {
+        // if (this instanceof Character || this instanceof ChickenBig || this instanceof ChickenSmall || this instanceof ChickenBoss || this instanceof Coin || this instanceof BottleLeft || this instanceof BottleRight) {
+        //     ctx.beginPath();
+        //     ctx.lineWidth = '5';
+        //     ctx.strokeStyle = 'red';
+        //     ctx.rect(this.offset.top, this.offset.left, this.offset.right, this.offset.bottom);
+        //     ctx.stroke();
+        // }
+    }
+
+
+    drawFrameRed(ctx) {
+        if (this instanceof Character || this instanceof ChickenBig || this instanceof ChickenSmall || this instanceof Coin || this instanceof BottleLeft || this instanceof BottleRight || this instanceof ChickenBoss) {
+            let frameX = this.x + this.offset.left;
+            let frameY = this.y + this.offset.top;
+            let frameWidth = this.width - this.offset.left - this.offset.right;
+            let frameHeight = this.height - this.offset.top - this.offset.bottom;
+
             ctx.beginPath();
-            ctx.lineWidth = '5';
+            ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';
-            ctx.rect(this.offset.top, this.offset.left, this.offset.right, this.offset.bottom);
+            ctx.rect(frameX, frameY, frameWidth, frameHeight);
             ctx.stroke();
         }
     }
